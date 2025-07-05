@@ -2,32 +2,38 @@
 import React, { useState } from "react";
 import "./TaskForm.css";
 
-function TaskForm({ onAdd }) {
+function TaskForm({ onAdd , selectedDate}) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Work");
-  const [deadline, setDeadline] = useState("");
+  const [time, setTime] = useState(""); 
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !deadline) {
-        alert("Please enter both a title and a deadline.");
-        return;
-      }
+    if (!title || !time) {
+      alert("Please enter both a title and a time.");
+      return;
+    }
+
+    const [hours, minutes] = time.split(":");
+    const deadlineDate = new Date(selectedDate);
+    deadlineDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    const deadlineISO = deadlineDate.toISOString();
+
     onAdd({
       id: Date.now(),
       title,
       description,
       category,
-      deadline,
+      deadline: deadlineISO, // already formatted
       completed: false,
     });
     setTitle("");
     setCategory("Work");
     setDescription("");
-    setDeadline("");
+    setTime("");
   };
-
+  
   return (
     <form className="task-form" onSubmit={handleSubmit}>
       <input
@@ -47,11 +53,13 @@ function TaskForm({ onAdd }) {
         <option value="Learning">Learning</option>
       </select>
       <input
-        type="date"
-        value={deadline}
-        onChange={(e) => setDeadline(e.target.value)}
+        type="time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
       />
-      <button type="submit">Add Task</button>
+      <div className="button-container">
+        <button type="submit">Add Task</button>
+      </div>
     </form>
   );
 }

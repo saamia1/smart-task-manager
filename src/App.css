@@ -1,14 +1,50 @@
-/* src/App.css */
-
-.app {
-  padding: 30px;
-  max-width: 600px;
-  margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+:root {
+  --primary-yellow: #F3DA65;     /* Butter yellow */
+  --primary-brown: #331A05;      /* Deep rich brown */
+  --bg-light: #FFFBEA;           /* Soft yellowish background */
+  --bg-dark: #2A1204;            /* Slightly darker than primary brown for contrast */
+  --text-main: #331A05;          /* Match with brown */
+  --text-muted: #8D775A;         /* A soft muted brown */
+  --accent-shadow: rgba(243, 218, 101, 0.5); /* shadow with yellow tint */
 }
 
-h1 {
-  text-align: center;
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--bg-light);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.app-container {
+  min-height: 100vh;
+  padding: 40px;
+  background-color: var(--bg-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.center-panel {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-right: 25px;
+}
+
+.right-panel {
+  width: 100%;
+  max-width: 320px;
+  height: 100%;
+
+}
+.header {
   margin-bottom: 30px;
 }

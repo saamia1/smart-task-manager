@@ -11,6 +11,7 @@ function TaskList({
     onSaveEdit,
     onCancelEdit,
     editingTaskId,
+    selectedDate,
 }) {
 
     const [openMenuId, setOpenMenuId] = useState(null);
@@ -31,8 +32,7 @@ function TaskList({
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
       }, []);
-      
-
+    
   const handleDelete = (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this task?");
     if (confirmDelete) {
@@ -50,7 +50,7 @@ function TaskList({
       title: task.title,
       description: task.description,
       category: task.category,
-      deadline: task.deadline,
+      deadline: task.deadlineISO,
     });
     setOpenMenuId(null);
   };
@@ -61,13 +61,22 @@ function TaskList({
   };
 
   const handleSave = (id) => {
-    if (!editFields.title || !editFields.deadline) {
+    if (!editFields.title || !editFields.time) {
       alert("Title and deadline are required.");
       return;
     }
     onSaveEdit(id, editFields);
-  };
+  
+    const [hours, minutes] = editFields.time.split(":");
+    const deadlineDate = new Date(selectedDate);
+    deadlineDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    const deadlineISO = deadlineDate.toISOString();
 
+    onSaveEdit(id, {
+      ...editFields,
+      deadline: deadlineISO,
+    });
+    };
 
   if (tasks.length === 0) {
     return <p>No tasks yet. Add one above!</p>;
@@ -102,9 +111,9 @@ function TaskList({
                 <option value="Learning">Learning</option>
               </select>
               <input
-                type="date"
-                name="deadline"
-                value={editFields.deadline}
+                type="time"
+                name="time"
+                value={editFields.time}
                 onChange={handleInputChange}
               />
               <div className="edit-buttons">
@@ -124,7 +133,7 @@ function TaskList({
                 <h3>{task.title}</h3>
                 {task.description && <p>{task.description}</p>}
                 <p><strong>Category:</strong> {task.category}</p>
-                <p><strong>Deadline:</strong> {task.deadline}</p>
+                <p><strong>Deadline:</strong> {new Date(task.deadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
               </div>
               <div className="task-actions">
                 <button onClick={() => toggleMenu(task.id)} className="menu-btn">

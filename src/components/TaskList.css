@@ -1,61 +1,139 @@
+/* Edit mode layout */
+.task-main.edit-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: #fffbea;
+  border-radius: 8px;
+  border: 1px solid var(--primary-brown);
+}
+
+/* Input fields */
+.task-main.edit-mode input[type="text"],
+.task-main.edit-mode input[type="date"],
+.task-main.edit-mode textarea,
+.task-main.edit-mode select {
+  padding: 10px;
+  border: 1px solid var(--primary-brown);
+  border-radius: 6px;
+  background-color: #fffdf5;
+  color: var(--primary-brown);
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+}
+
+.task-main.edit-mode textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
 .task-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-  }
-  
-  .task-item {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-  }
-  
-  .task-item.completed {
-    background: #f0f0f0;
-    color: #999;
-    text-decoration: line-through;
-  }
-  
-  .task-actions {
-    position: relative;
-  }
-  
-  .menu-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    right: 0;
-    top: 30px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    z-index: 10;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    opacity: 1;
-  }
-  
-  .dropdown-menu button {
-    display: block;
-    padding: 8px 12px;
-    width: 100%;
-    border: none;
-    background: none;
-    text-align: left;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu button:hover {
-    background-color: #f1f1f1;
-  }
-  
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+/* Task card */
+.task-item {
+  background: #fffdf3; /* soft warm background */
+  border: 1px solid var(--primary-brown);
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  color: var(--primary-brown);
+  box-shadow: 0 2px 6px rgba(51, 26, 5, 0.08); /* soft brown shadow */
+}
+
+/* Completed tasks look muted */
+.task-item.completed {
+  background: #f4f1dc;
+  color: #a99b82;
+  text-decoration: line-through;
+}
+
+/* Actions container */
+.task-actions {
+  position: relative;
+}
+
+/* Menu button (3 dots) */
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--primary-brown);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #fffbea;
+  border: 1px solid var(--primary-brown);
+  border-radius: 6px;
+  z-index: 10;
+  box-shadow: 0px 2px 6px rgba(51, 26, 5, 0.15);
+  transition: all 0.2s ease;
+  opacity: 1;
+  overflow: hidden;
+}
+
+/* Dropdown options */
+.dropdown-menu button {
+  display: block;
+  padding: 10px 14px;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--primary-brown);
+}
+
+.dropdown-menu button:hover {
+  background-color: #f3e5a2; /* a hover highlight from the yellow palette */
+}
+
+/* Edit buttons */
+.edit-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-buttons button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease;
+}
+
+.edit-buttons button:first-child {
+  background-color: var(--primary-brown);
+  color: white;
+}
+
+.edit-buttons button:first-child:hover {
+  background-color: #2a1204;
+}
+
+.edit-buttons button:last-child {
+  background-color: #f3e3a8;
+  color: var(--primary-brown);
+}
+
+.edit-buttons button:last-child:hover {
+  background-color: #f8efc9;
+}

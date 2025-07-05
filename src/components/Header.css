@@ -1,0 +1,25 @@
+.header-section {
+  padding: 20px 24px 20px 100px; /* top, right, bottom, left */
+  background-color: #F3DA65;    /* subtle background */
+  border-radius: 12px;          /* rounded corners */
+  color: #1f1f1f;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* soft shadow */
+  margin-bottom: 30px;
+  width: 90%;
+  text-align: center;           /* ✅ center text horizontally */
+  display: flex;                /* ✅ center vertically too if needed */
+  flex-direction: column;
+  align-items: center;          /* ✅ center items horizontally */
+  justify-content: center;      /* ✅ center content vertically */
+  margin: 0 auto;
+}
+.header-section h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.header-section p {
+  color: #6c757d;
+  font-size: 16px;
+  margin: 0;
+}

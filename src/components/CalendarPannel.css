@@ -1,0 +1,115 @@
+.calendar-panel-container {
+  padding: 20px;
+  background-color: var(--bg-light);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px var(--accent-shadow);
+  width: 100%;
+  min-height: 440px; /* ✅ Increase height */
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-heading {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary-brown);
+}
+
+.calendar-wrapper {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Custom calendar class */
+.custom-calendar {
+  width: 100%;
+  height: 100%; /* ✅ Take full height of wrapper */
+  min-height: 400px;
+  background-color: var(--bg-light);
+  border: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+/* Increase height and font size of day tiles */
+.react-calendar__tile {
+  height: 60px;       /* bigger height */
+  line-height: 60px;  /* vertically center the number */
+  font-size: 1rem; /* bigger font */
+  border-radius: 12px;
+}
+
+/* Optional: Increase size of weekday labels */
+.react-calendar__month-view__weekdays__weekday {
+  font-size: 1rem;
+  padding: 12px 0;
+}
+/* Today */
+.react-calendar__tile--now {
+  background: var(--primary-yellow);
+  color: var(--primary-brown);
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 6px var(--accent-shadow);
+}
+
+/* Selected */
+.react-calendar__tile--active {
+  background: var(--primary-brown) !important;
+  color: white !important;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+/* Hover */
+.react-calendar__tile:enabled:hover {
+  background-color: rgba(243, 218, 101, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* Arrows & navigation */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.react-calendar__navigation button {
+  background: transparent;
+  border: none;
+  color: var(--primary-brown);
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.react-calendar__navigation button:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button,
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next-button {
+  font-size: 1.2rem;
+}
+
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  display: none; /* hide double arrows if you want */
+}

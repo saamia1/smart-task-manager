@@ -1,0 +1,19 @@
+.today-widget {
+  background: var(--primary-yellow); /* warm yellow background */
+  padding: 20px;
+  border-radius: 12px;
+  height: 100%;
+  box-shadow: 0 2px 8px var(--accent-shadow); /* subtle yellow-tinted shadow */
+  color: var(--primary-brown); /* dark brown text */
+  border: 1px solid var(--primary-brown);
+}
+
+.task-widget-card {
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-left: 2px solid var(--primary-brown); /* themed border */
+  background: #fffdf3; /* a soft yellowish card background */
+  border-radius: 8px;
+  color: var(--primary-brown);
+  box-shadow: 0 1px 4px rgba(51, 26, 5, 0.08); /* subtle brown shadow */
+}
