@@ -39,8 +39,9 @@ Each task is stored as a document in the Firestore collection, with the followin
 | title       | String  | The title of the task (required)                     |
 | description | String  | Additional info about the task (optional)           |
 | completed   | Boolean | Whether the task is complete or not                 |
-| date        | String  | The date the task is associated with (YYYY-MM-DD)   |
-| deadline    | String  | Optional deadline for the task                      |
+| deadline    | String  | Deadline for the task   (required)                  |
+| category    | String  | The category of the Task   (required)               |
+| id          | Number  | Unique identifier of the Task                       |
 
 ## How to Run the Project Locally
 
