@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+# Smart Task Manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple yet functional task management web application built using React for the frontend and Firebase Firestore for the backend.
 
-## Available Scripts
+## Why React and Firebase?
 
-In the project directory, you can run:
+I chose React because I have prior experience working with it, which allows me to quickly build responsive, component-based user interfaces. For the backend, I used Firebase Firestore as it provides a flexible, real-time NoSQL cloud database that's easy to integrate with React and requires minimal backend setup.
 
-### `npm start`
+### Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Add, edit, and delete tasks
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Mark tasks as complete or incomplete
 
-### `npm test`
+Categorize tasks
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+View tasks by selected date
 
-### `npm run build`
+Automatically sync with Firebase Firestore
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Responsive UI built with React components
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### React Components
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application is modular and composed of the following key components:
 
-### `npm run eject`
+App.js – Main component that brings everything together and manages state and layout.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Header.js – Displays the app title, progress bar for the day, and number of tasks completed vs total.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+CalendarPanel.js – Lets users select a date to view tasks for that specific day.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+TaskForm.js – A form to add new tasks including title, optional description, and deadline.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+TaskList.js – Lists all tasks for the selected date and allows marking them complete or deleting.
 
-## Learn More
+TodayTaskWidget.js – Provides a quick overview of today’s tasks, separated from the main task list.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+TaskService.js – A utility module that handles all Firebase Firestore interactions (CRUD operations).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Room for Improvement
 
-### Code Splitting
+A major improvement could be implementing user authentication (login/signup), allowing users to create a personalized task management experience. Each user could then have their own Firestore collection of tasks.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Database Schema (Firestore)
 
-### Analyzing the Bundle Size
+Each task is stored as a document in the Firestore collection, with the following fields:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Field	Type	Description
+title	String	The title of the task (required)
+description	String	Additional info about the task (optional)
+completed	Boolean	Whether the task is complete or not
+date	String	The date the task is associated with (format: YYYY-MM-DD)
+deadline	String	Optional deadline for the task
 
-### Making a Progressive Web App
+How to Run the Project Locally
+Clone the repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+bash
+Copy
+Edit
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+Install dependencies
 
-### Advanced Configuration
+bash
+Copy
+Edit
+npm install
+Set up Firebase
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Create a project in Firebase Console
 
-### Deployment
+Enable Firestore
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Create a .env file in the root with your Firebase config:
 
-### `npm run build` fails to minify
+ini
+Copy
+Edit
+REACT_APP_FIREBASE_API_KEY=your_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+Run the app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+bash
+Copy
+Edit
+npm start
+The app will run at http://localhost:3000
+
+Assumptions Made
+One user uses the app at a time (no multi-user support).
+
+Tasks are tied to a date, and users typically manage one day at a time.
+
+Users do not require task reminders or push notifications yet.
+
+Firestore collections are public (no auth rules in place).
+
+🧾 Version Control
+The project is managed using Git, and all code is pushed to a public GitHub repository for version tracking and collaboration.
+
+📦 Tech Stack
+Frontend: React (Create React App)
+
+Backend: Firebase Firestore (NoSQL)
+
+Version Control: Git & GitHub
+
+📈 Future Enhancements
+🔐 User login/signup (Firebase Auth)
+
+📱 Mobile responsiveness
+
+📊 Task analytics (completed vs pending)
+
+📅 Calendar view for tasks
+
+🕒 Task reminder notifications
+
+🎨 Dark mode toggle
