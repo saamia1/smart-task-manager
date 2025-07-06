@@ -5,27 +5,25 @@ import TaskList from "./components/TaskList";
 import Header from "./components/Header";
 import CalendarPanel from "./components/CalendarPannel";
 import TodayTasksWidget from "./components/TodayTaskWidget";
+import { addTask, getTasks, updateTask, deleteTask } from "./services/taskService";
 
 function App() {
-  useEffect(() => {
-    if ("Notification" in window) {
-      if (Notification.permission === "default") {
-        Notification.requestPermission().then(permission => {
-          console.log("Notification permission:", permission);
-        });
-      } else {
-        console.log("Notification permission already:", Notification.permission);
-      }
-    } else {
-      console.log("Browser does not support notifications");
-    }
-  }, []);
-  
-
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [notifiedTaskIds, setNotifiedTaskIds] = useState(new Set());
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const fetchedTasks = await getTasks();
+        setTasks(fetchedTasks);
+      } catch (error) {
+        console.error("Failed to fetch tasks:", error);
+      }
+    };
+    fetchTasks();
+  }, []);  
 
 useEffect(() => {
   if (Notification.permission !== "granted") return;
@@ -54,34 +52,55 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, [tasks, notifiedTaskIds]);
 
-  const handleAddTask = (newTask) => {
-    setTasks([...tasks, newTask]);
-  };
+// When adding a task:
+const handleAddTask = async (newTask) => {
+  try {
+    const saved = await addTask(newTask); // saves to Firestore and returns with ID
+    
+    // After adding, refetch all tasks from Firestore so local state is always fresh
+    const freshTasks = await getTasks();
+    setTasks(freshTasks);
+  } catch (error) {
+    console.error("Failed to add task:", error);
+  }
+};
 
-  const handleDeleteTask = (taskID) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskID);
-    setTasks(updatedTasks);
-  };
 
-  const handleToggleComplete = (taskId) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
-  };
+
+const handleDeleteTask = async (taskId) => {
+  await deleteTask(taskId);
+  setTasks((prev) => prev.filter((task) => task.id !== taskId));
+};
+
+
+const handleToggleComplete = async (taskId) => {
+  const targetTask = tasks.find((t) => t.id === taskId);
+  if (!targetTask) return;
+  
+  const updatedStatus = !targetTask.completed;
+  await updateTask(taskId, { completed: updatedStatus });
+  
+  setTasks((prev) =>
+    prev.map((task) =>
+      task.id === taskId ? { ...task, completed: updatedStatus } : task
+    )
+  );
+};
 
   const handleStartEdit = (taskId) => {
     setEditingTaskId(taskId);
   };
 
-  const handleSaveEdit = (taskId, updatedTaskData) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, ...updatedTaskData } : task
+  const handleSaveEdit = async (taskId, updatedTaskData) => {
+    await updateTask(taskId, updatedTaskData);
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === taskId ? { ...task, ...updatedTaskData } : task
+      )
     );
-    setTasks(updatedTasks);
     setEditingTaskId(null);
   };
-
+  
   const handleCancelEdit = () => {
     setEditingTaskId(null);
   };
@@ -98,10 +117,11 @@ useEffect(() => {
   const formattedSelectedDate = getLocalDateString(selectedDate);
   
   const tasksForSelectedDate = tasks.filter((task) => {
-    // Use local date string from task.deadline as well
-    const taskDateObj = new Date(task.deadline);
-    const taskDate = getLocalDateString(taskDateObj);
-    return taskDate === formattedSelectedDate;
+    if (!task.deadline) return false;  // guard against missing deadline
+    const taskDate = new Date(task.deadline.seconds ? task.deadline.seconds * 1000 : task.deadline)
+    .toISOString()
+    .split("T")[0];
+      return taskDate === formattedSelectedDate;
   });
   
     const tasksCompleted = tasksForSelectedDate.filter((task) => task.completed).length;

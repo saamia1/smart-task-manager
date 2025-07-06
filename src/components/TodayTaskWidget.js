@@ -6,8 +6,10 @@ function TodayTasksWidget({ tasks }) {
   
     const todayTasks = tasks
       .filter((task) => {
-        const taskDate = task.deadline.split("T")[0];
-        return taskDate === today;
+        const taskDate = new Date(task.deadline.seconds ? task.deadline.seconds * 1000 : task.deadline)
+        .toISOString()
+        .split("T")[0];
+              return taskDate === today;
       })
       .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); // ✅ sort ascending
 

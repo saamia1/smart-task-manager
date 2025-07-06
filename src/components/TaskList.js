@@ -46,14 +46,18 @@ function TaskList({
 
   const handleEditClick = (task) => {
     onEdit(task.id);
+    const deadlineDate = new Date(task.deadline);
+    const timeString = deadlineDate.toISOString().slice(11, 16); // "HH:mm"
+    
     setEditFields({
       title: task.title,
       description: task.description,
       category: task.category,
-      deadline: task.deadlineISO,
+      time: timeString, // use 'time' not deadlineISO
     });
     setOpenMenuId(null);
   };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,19 +69,18 @@ function TaskList({
       alert("Title and deadline are required.");
       return;
     }
-    onSaveEdit(id, editFields);
   
     const [hours, minutes] = editFields.time.split(":");
     const deadlineDate = new Date(selectedDate);
     deadlineDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
     const deadlineISO = deadlineDate.toISOString();
-
+  
     onSaveEdit(id, {
       ...editFields,
       deadline: deadlineISO,
     });
-    };
-
+  };
+  
   if (tasks.length === 0) {
     return <p>No tasks yet. Add one above!</p>;
   }
