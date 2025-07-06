@@ -55,11 +55,9 @@ useEffect(() => {
 // When adding a task:
 const handleAddTask = async (newTask) => {
   try {
-    const saved = await addTask(newTask); // saves to Firestore and returns with ID
+    const saved = await addTask(newTask);
+    setTasks(prev => [...prev, saved]);
     
-    // After adding, refetch all tasks from Firestore so local state is always fresh
-    const freshTasks = await getTasks();
-    setTasks(freshTasks);
   } catch (error) {
     console.error("Failed to add task:", error);
   }
@@ -146,7 +144,10 @@ const handleToggleComplete = async (taskId) => {
           />
         </div>
         <div className="right-panel">
-          <TodayTasksWidget tasks={tasks} />
+          <TodayTasksWidget 
+          tasks={tasks} 
+          selectedDate={selectedDate}
+          />
         </div>
       </div>
     </div>

@@ -5,6 +5,8 @@ import "./TaskForm.css";
 function TaskForm({ onAdd , selectedDate}) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Work");
+  const [categories, setCategories] = useState(["Work", "Personal", "Learning"]);
+  const [newCategory, setNewCategory] = useState("");
   const [time, setTime] = useState(""); 
   const [description, setDescription] = useState("");
 
@@ -34,33 +36,64 @@ function TaskForm({ onAdd , selectedDate}) {
     setTime("");
   };
   
+  const handleAddCategory = () => {
+    if (newCategory && !categories.includes(newCategory)) {
+      setCategories([...categories, newCategory]);
+      setCategory(newCategory);
+      setNewCategory("");
+    }
+  };
+
   return (
     <form className="task-form" onSubmit={handleSubmit}>
-      <input
+       <div className="top-row">
+       <input
         type="text"
+        className="title-input"
         placeholder="Task title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <textarea
-        placeholder="Optional description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
-        <option value="Work">Work</option>
-        <option value="Personal">Personal</option>
-        <option value="Learning">Learning</option>
-      </select>
-      <input
-        type="time"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
-      />
-      <div className="button-container">
-        <button type="submit">Add Task</button>
-      </div>
-    </form>
+      <div className="category-row">
+      <select
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+>
+  {categories.map((cat) => (
+    <option key={cat} value={cat}>
+      {cat}
+    </option>
+  ))}
+</select>
+
+  <input
+    type="text"
+    placeholder="Add category"
+    value={newCategory}
+    onChange={(e) => setNewCategory(e.target.value)}
+  />
+  <button type="button" onClick={handleAddCategory}>+</button>
+
+</div>
+<input
+      type="time"
+      className="time-input"    // <--- add this
+      value={time}
+      onChange={(e) => setTime(e.target.value)}
+    />
+  </div>
+  <div className="bottom-row">
+    <textarea
+      placeholder="Optional description"
+      value={description}
+      onChange={(e) => setDescription(e.target.value)}
+    ></textarea>
+    
+    <div className="button-container">
+      <button type="submit">Add Task</button>
+    </div>
+  </div>
+</form>
   );
 }
 

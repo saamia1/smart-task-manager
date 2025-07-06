@@ -1,42 +1,96 @@
 .task-form {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--primary-brown);
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px var(--accent-shadow);
+  margin: 0 auto;
+  width: 100%;
+}
+/* Top Row: Title, Category, Time */
+.top-row {
+  display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  background: var(--primary-brown); 
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px var(--accent-shadow);
+  align-items: flex-start;
+}
+
+.top-row > * {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Make title input take less space */
+.title-input {
+  flex: 0.7;       /* less than 1, so it takes less space */
+  min-width: 120px; /* reduce min-width too */
+}
+
+.category-row {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.category-row select,
+.category-row input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--primary-yellow);
+  border-radius: 12px;
+  background-color: var(--bg-light);
+  color: var(--primary-brown);
+  box-shadow: 0 2px 5px rgba(243, 218, 101, 0.25);
+}
+
+.category-row button {
+  padding: 12px 16px;
+  background-color: var(--primary-yellow);
+  color: var(--primary-brown);
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Description + Button Row */
+.bottom-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.bottom-row textarea {
+  flex: 3;
+  resize: vertical;
+}
+
+.bottom-row .button-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
 }
 
 .task-form input,
 .task-form textarea,
 .task-form select {
-  flex: 1 1 180px;
   padding: 12px 16px;
   font-size: 1rem;
   border: 2px solid var(--primary-yellow);
   border-radius: 12px;
-  transition: border 0.2s ease;
-  background-color: var(--bg-light); /* Butter yellow input background */
-  color: var(--primary-brown); /* Brown text */
-  box-shadow: 0 2px 5px rgba(243, 218, 101, 0.25); /* Yellow shadow */
+  background-color: var(--bg-light);
+  color: var(--primary-brown);
+  box-shadow: 0 2px 5px rgba(243, 218, 101, 0.25);
 }
 
-.task-form input:focus,
-.task-form textarea:focus,
-.task-form select:focus {
-  border-color: var(--bg-dark);
-  outline: none;
-  background-color: #fffce5; /* Slightly lighter butter yellow */
-}
-
-.button-container {
-  flex: 1 1 100%;    /* Full width */
-  display: flex;
-  justify-content: center; /* center horizontally */
-  margin-top: 8px;   /* optional spacing from inputs */
-}
-.task-form button {
+.task-form button[type="submit"] {
   padding: 12px 24px;
   background-color: var(--primary-yellow);
   color: var(--primary-brown);
@@ -45,10 +99,21 @@
   border-radius: 12px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
-.task-form button:hover {
-  background-color: #e7c849; /* Deeper shade of butter yellow */
+.task-form button[type="submit"]:hover {
+  background-color: #e7c849;
   transform: translateY(-1px);
+}
+.time-input {
+  flex: 1;
+  max-width: 70px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--primary-yellow);
+  border-radius: 12px;
+  background-color: var(--bg-light);
+  color: var(--primary-brown);
+  box-shadow: 0 2px 5px rgba(243, 218, 101, 0.25);
 }
