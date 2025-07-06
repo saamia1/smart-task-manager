@@ -63,13 +63,10 @@ const handleAddTask = async (newTask) => {
   }
 };
 
-
-
 const handleDeleteTask = async (taskId) => {
   await deleteTask(taskId);
   setTasks((prev) => prev.filter((task) => task.id !== taskId));
 };
-
 
 const handleToggleComplete = async (taskId) => {
   const targetTask = tasks.find((t) => t.id === taskId);
@@ -106,6 +103,7 @@ const handleToggleComplete = async (taskId) => {
   const handleDateSelect = (date) => {
     setSelectedDate(date);
   };
+
   function getLocalDateString(date) {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -127,7 +125,6 @@ const handleToggleComplete = async (taskId) => {
   return (
     <div className="app-container">
       <Header total={tasksForSelectedDate.length} completed={tasksCompleted} />
-
       <div className="main-content">
         <div className="center-panel">
           <CalendarPanel onDateSelect={handleDateSelect} />
